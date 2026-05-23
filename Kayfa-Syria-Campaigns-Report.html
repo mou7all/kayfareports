@@ -1,0 +1,1674 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kayfa & NGen — Syria ad account Campaigns Report | May 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Tajawal:wght@400;500;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+<style>
+/* ─── Design Tokens ─── */
+:root {
+  --bg: #F8FAFC;
+  --bg-surface: #FFFFFF;
+  --bg-inset: #F1F5F9;
+  --border: #E2E8F0;
+  --border-light: #F1F5F9;
+  --text: #0F172A;
+  --text-sec: #334155;
+  --text-muted: #64748B;
+  --accent: rgb(63, 75, 210);
+  --accent-soft: rgba(63, 75, 210, 0.08);
+  --accent-mid: rgba(63, 75, 210, 0.15);
+  --accent-strong: rgba(63, 75, 210, 0.25);
+  --amber: #D97706;
+  --amber-soft: rgba(217, 119, 6, 0.08);
+  --green: #059669;
+  --green-soft: rgba(5, 150, 105, 0.08);
+  --coral: #DC2626;
+  --coral-soft: rgba(220, 38, 38, 0.08);
+  --radius: 16px;
+  --radius-sm: 10px;
+  --radius-xs: 6px;
+  --shadow-sm: 0 1px 2px rgba(15,23,42,0.04);
+  --shadow-md: 0 4px 12px rgba(15,23,42,0.06);
+  --shadow-lg: 0 8px 24px rgba(15,23,42,0.08);
+  --shadow-accent: 0 4px 16px rgba(63,75,210,0.12);
+  --font-sans: 'IBM Plex Sans Arabic', 'Tajawal', sans-serif;
+  --font-display: 'Tajawal', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-muted); }
+
+/* ─── Sticky Nav ─── */
+.nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(248, 250, 252, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  transition: box-shadow 0.3s;
+}
+.nav.scrolled { box-shadow: var(--shadow-md); }
+.nav-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 52px;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.nav-inner::-webkit-scrollbar { display: none; }
+.nav-link {
+  flex-shrink: 0;
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: all 0.3s var(--ease);
+  white-space: nowrap;
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--accent);
+  transition: all 0.3s var(--ease);
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+.nav-link:hover::after, .nav-link.active::after { width: 20px; }
+.nav-link:hover { color: var(--accent); background: var(--accent-soft); }
+.nav-link.active { color: var(--accent); background: var(--accent-mid); }
+.nav-brand {
+  flex-shrink: 0;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 15px;
+  color: var(--accent);
+  margin-left: 16px;
+  padding-left: 16px;
+  border-right: 2px solid var(--accent-mid);
+}
+
+/* ─── Hero ─── */
+.hero {
+  padding: 72px 40px 56px;
+  position: relative;
+  overflow: hidden;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -10%;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(63,75,210,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: -30%;
+  left: -5%;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(217,119,6,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-inner { position: relative; max-width: 1400px; margin: 0 auto; }
+.hero-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; flex-wrap: wrap; }
+.hero-left { max-width: 680px; }
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: var(--accent-soft);
+  border: 1px solid var(--accent-mid);
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 24px;
+  letter-spacing: 0.3px;
+}
+.hero-tag .dot {
+  width: 7px;
+  height: 7px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse-dot 2s infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+.hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 4.2vw, 56px);
+  font-weight: 900;
+  line-height: 1.12;
+  margin-bottom: 16px;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+.hero h1 span { color: var(--accent); }
+.hero .sub {
+  font-size: 17px;
+  color: var(--text-sec);
+  max-width: 560px;
+  line-height: 1.8;
+}
+.hero-period {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+  padding: 8px 18px;
+  background: var(--bg-inset);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-sec);
+}
+.hero-period svg { flex-shrink: 0; }
+
+/* Hero Quick Stats */
+.hero-stats {
+  display: flex;
+  gap: 2px;
+  background: var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  align-self: stretch;
+  min-width: 320px;
+}
+.hero-stat {
+  flex: 1;
+  background: var(--bg-surface);
+  padding: 24px 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  transition: background 0.2s;
+}
+.hero-stat:hover { background: var(--accent-soft); }
+.hero-stat-val {
+  font-family: var(--font-display);
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1;
+  margin-bottom: 6px;
+  color: var(--accent);
+}
+.hero-stat-val.amber { color: var(--amber); }
+.hero-stat-lbl {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.2px;
+}
+
+/* ─── Container ─── */
+.container { max-width: 1400px; margin: 0 auto; padding: 0 40px; }
+
+/* ─── Section ─── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.sec {
+  padding: 56px 0;
+  scroll-margin-top: 68px;
+  animation: fadeInUp 0.8s var(--ease) both;
+}
+.sec:nth-child(2) { animation-delay: 0.1s; }
+.sec:nth-child(3) { animation-delay: 0.2s; }
+.sec:nth-child(4) { animation-delay: 0.3s; }
+.sec-head {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid var(--border-light);
+}
+.sec-num {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  flex-shrink: 0;
+  box-shadow: var(--shadow-accent);
+}
+.sec-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text);
+}
+
+/* ─── Grid ─── */
+.g2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+.g3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+
+/* ─── Card ─── */
+.card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s var(--ease);
+}
+.card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.85);
+  border-color: var(--accent-mid);
+}
+.card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.card-title { font-size: 15px; font-weight: 700; color: var(--text); }
+.badge {
+  padding: 4px 12px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+}
+.badge-default { background: var(--bg-inset); color: var(--text-muted); }
+.badge-gold { background: var(--accent-soft); color: var(--accent); }
+.badge-amber { background: var(--amber-soft); color: var(--amber); }
+.badge-green { background: var(--green-soft); color: var(--green); }
+.badge-coral { background: var(--coral-soft); color: var(--coral); }
+
+.metric-row { display: flex; align-items: baseline; gap: 6px; margin-bottom: 4px; }
+.metric-val { font-family: var(--font-display); font-size: 32px; font-weight: 800; color: var(--text); }
+.metric-val.accent { color: var(--accent); }
+.metric-unit { font-size: 14px; color: var(--text-muted); font-weight: 500; }
+.metric-lbl { font-size: 12.5px; color: var(--text-sec); font-weight: 500; }
+.mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+.mini-item {
+  padding: 14px 16px;
+  background: var(--bg-inset);
+  border-radius: var(--radius-sm);
+}
+.mini-val { font-family: var(--font-display); font-size: 22px; font-weight: 800; color: var(--accent); }
+.mini-val.accent { color: var(--accent); }
+.mini-lbl { font-size: 11px; color: var(--text-muted); font-weight: 500; margin-top: 2px; }
+
+/* ─── Insight ─── */
+.ins {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: var(--radius);
+  padding: 24px 24px 24px 28px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s var(--ease);
+}
+.ins:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.85);
+}
+.ins::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--accent);
+  border-radius: 0 4px 4px 0;
+}
+.ins-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-soft);
+  border-radius: var(--radius-sm);
+  margin-bottom: 14px;
+}
+.ins-title { font-size: 15px; font-weight: 700; margin-bottom: 10px; color: var(--text); }
+.ins-text { font-size: 13.5px; color: var(--text-sec); line-height: 1.9; }
+
+/* ─── Table ─── */
+.tbl-wrap {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+.tbl-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg-surface);
+}
+.tbl-bar-title { font-size: 14px; font-weight: 700; color: var(--text); }
+.tbl-scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+thead th {
+  padding: 14px 16px;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-align: right;
+  border-bottom: 2px solid var(--border);
+  white-space: nowrap;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  background: var(--bg-inset);
+  position: sticky;
+  top: 0;
+}
+tbody tr { border-bottom: 1px solid var(--border-light); transition: background 0.15s; }
+tbody tr:hover { background: var(--accent-soft); }
+tbody tr:last-child { border-bottom: none; }
+tbody td {
+  padding: 14px 16px;
+  font-size: 13px;
+  color: var(--text-sec);
+  white-space: nowrap;
+}
+tbody td:first-child {
+  color: var(--text);
+  font-weight: 600;
+  max-width: 280px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+td.n {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 12.5px;
+  text-align: center;
+  color: var(--text) !important;
+}
+td.accent { color: var(--accent) !important; font-weight: 700 !important; }
+td.mono { font-family: var(--font-mono); font-size: 12.5px; }
+
+/* ─── Status ─── */
+.st {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 3px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.st-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.st-active { background: var(--green-soft); color: var(--green); }
+.st-active .st-dot { background: var(--green); }
+.st-done { background: var(--bg-inset); color: var(--text-muted); }
+.st-done .st-dot { background: var(--text-muted); }
+.st-recent { background: var(--accent-soft); color: var(--accent); }
+.st-recent .st-dot { background: var(--accent); }
+.st-stop { background: var(--coral-soft); color: var(--coral); }
+.st-stop .st-dot { background: var(--coral); }
+
+/* ─── Chart ─── */
+.chart-box {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 28px;
+  box-shadow: var(--shadow-sm);
+}
+.chart-title {
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 24px;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.chart-title-icon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent-soft);
+  border-radius: var(--radius-xs);
+}
+.chart-title-icon svg { width: 16px; height: 16px; }
+canvas { max-width: 100%; }
+
+/* ─── Progress ─── */
+.prog-wrap {
+  width: 100%;
+  height: 8px;
+  background: var(--bg-inset);
+  border-radius: 4px;
+  overflow: hidden;
+}
+.prog-bar {
+  height: 100%;
+  border-radius: 4px;
+  background: var(--accent);
+  transition: width 0.8s var(--ease);
+}
+.prog-bar.amber { background: var(--amber); }
+
+/* ─── Funnel ─── */
+.funnel { max-width: 720px; margin: 0 auto; }
+.funnel-step {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 4px;
+  position: relative;
+}
+.funnel-bar-container { flex: 1; }
+.funnel-bar-bg {
+  width: 100%;
+  padding: 18px 24px;
+  border-radius: var(--radius-sm);
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+.funnel-bar-bg:hover { transform: scale(1.01); }
+.funnel-bar-bg.blue {
+  background: linear-gradient(135deg, var(--accent-mid), var(--accent-soft));
+  border: 1px solid var(--accent-mid);
+}
+.funnel-bar-bg.light {
+  background: var(--bg-inset);
+  border: 1px solid var(--border);
+}
+.funnel-bar-bg.amber-bg {
+  background: var(--amber-soft);
+  border: 1px solid rgba(217,119,6,0.15);
+}
+.funnel-label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 4px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.funnel-label-name { color: var(--text-sec); }
+.funnel-label-val { font-family: var(--font-display); font-size: 20px; font-weight: 800; color: var(--text); }
+.funnel-label-val.accent { color: var(--accent); }
+.funnel-label-val.amber { color: var(--amber); }
+.funnel-pct {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-top: 2px;
+}
+.funnel-arrow {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: var(--text-muted);
+  font-size: 14px;
+  margin: 4px auto;
+}
+
+/* ─── Recommendations ─── */
+.reco { list-style: none; }
+.reco li {
+  position: relative;
+  padding: 22px 56px 22px 24px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: var(--text-sec);
+  line-height: 1.85;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.reco li:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.reco li::before {
+  content: attr(data-n);
+  position: absolute;
+  right: 20px;
+  top: 22px;
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  border-radius: var(--radius-xs);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: #fff;
+}
+
+/* ─── ROI Grid ─── */
+.roi-grid { display: grid; gap: 8px; }
+.roi-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  transition: background 0.15s, box-shadow 0.2s;
+}
+.roi-row:hover { background: var(--accent-soft); box-shadow: var(--shadow-sm); }
+.roi-lbl { color: var(--text-sec); font-size: 13.5px; font-weight: 500; }
+.roi-val {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--text);
+}
+.roi-val.accent { color: var(--accent); }
+.roi-val.amber { color: var(--amber); }
+
+/* ─── Geo Card ─── */
+.geo-card {
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: box-shadow 0.25s var(--ease), transform 0.25s var(--ease);
+}
+.geo-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.geo-header {
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--bg-surface);
+}
+.geo-flag { font-size: 24px; }
+.geo-body { padding: 20px 24px; background: var(--bg-surface); }
+.geo-desc {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--text-sec);
+  line-height: 1.8;
+  padding-top: 14px;
+  border-top: 1px solid var(--border-light);
+}
+
+/* ─── Footer ─── */
+.footer {
+  text-align: center;
+  padding: 48px 24px;
+  border-top: 1px solid var(--border);
+  background: var(--bg-surface);
+}
+.footer-logo { margin-bottom: 16px; }
+.footer-brand { font-family: var(--font-display); font-size: 16px; font-weight: 800; color: var(--accent); margin-bottom: 6px; }
+.footer-text { font-size: 12.5px; color: var(--text-muted); line-height: 1.8; }
+.footer-meta {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* ─── Brand Comparison Card ─── */
+.brand-compare {
+  margin-top: 16px;
+  padding: 28px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+}
+.brand-row {
+  margin-bottom: 20px;
+}
+.brand-row:last-of-type { margin-bottom: 0; }
+.brand-label {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12.5px;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+.brand-label-name { color: var(--text-sec); }
+.brand-label-val { color: var(--accent); font-weight: 700; font-family: var(--font-mono); font-size: 12px; }
+.brand-label-val.dim { color: var(--text-muted); }
+.brand-bar {
+  width: 100%;
+  height: 10px;
+  background: var(--bg-inset);
+  border-radius: 5px;
+  overflow: hidden;
+}
+.brand-bar-fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.8s var(--ease);
+}
+.brand-bar-fill.accent { background: var(--accent); }
+.brand-bar-fill.muted { background: var(--text-muted); }
+.brand-note {
+  margin-top: 18px;
+  padding: 16px 20px;
+  background: var(--bg-inset);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  color: var(--text-sec);
+  line-height: 1.85;
+}
+
+/* ─── Print ─── */
+@media print {
+  body { background: #fff; }
+  .nav { display: none; }
+  .hero { padding: 32px; }
+  .container { padding: 0 24px; }
+  .sec { padding: 32px 0; }
+  .card, .chart-box, .tbl-wrap, .ins, .geo-card, .brand-compare { box-shadow: none; border-color: #ddd; }
+  .reco li { box-shadow: none; }
+}
+
+/* ─── Desktop Responsive (max 1200) ─── */
+@media (max-width: 1200px) {
+  .hero-stats { min-width: 280px; }
+  .g2 { grid-template-columns: 1fr; }
+}
+
+/* ─── Tablet (max 900) ─── */
+@media (max-width: 900px) {
+  .hero { padding: 48px 24px 36px; }
+  .hero-top { flex-direction: column; }
+  .hero-stats { min-width: unset; width: 100%; }
+  .container { padding: 0 24px; }
+  .g3 { grid-template-columns: 1fr; }
+  .g2 { grid-template-columns: 1fr; }
+  .sec { padding: 40px 0; }
+  .nav-brand { display: none; }
+
+  /* Table card layout on tablet */
+  .tbl-responsive-card thead { display: none; }
+  .tbl-responsive-card tbody tr {
+    display: block;
+    padding: 16px;
+    margin-bottom: 8px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    background: var(--bg-surface);
+  }
+  .tbl-responsive-card tbody td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid var(--border-light);
+    white-space: normal;
+  }
+  .tbl-responsive-card tbody td:last-child { border-bottom: none; }
+  .tbl-responsive-card tbody td::before {
+    content: attr(data-label);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-left: 12px;
+  }
+  .tbl-responsive-card tbody td:first-child {
+    font-size: 14px;
+    font-weight: 700;
+    max-width: unset;
+    overflow: visible;
+  }
+}
+
+/* ─── Mobile (max 600) ─── */
+@media (max-width: 600px) {
+  .hero { padding: 32px 16px 28px; }
+  .hero h1 { font-size: 28px; }
+  .hero .sub { font-size: 15px; }
+  .container { padding: 0 16px; }
+  .sec { padding: 32px 0; scroll-margin-top: 56px; }
+  .sec-title { font-size: 22px; }
+  .hero-stats { gap: 1px; }
+  .hero-stat { padding: 16px 10px; }
+  .hero-stat-val { font-size: 22px; }
+  .hero-stat-lbl { font-size: 10px; }
+  .card { padding: 20px; }
+  .mini-grid { grid-template-columns: 1fr; }
+  .chart-box { padding: 20px; }
+  .funnel-step { gap: 10px; }
+  .funnel-label-val { font-size: 18px; }
+  .reco li { padding: 18px 48px 18px 16px; font-size: 13px; }
+  .reco li::before { right: 14px; top: 18px; width: 24px; height: 24px; font-size: 11px; }
+  .footer { padding: 32px 16px; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── STICKY NAV ─── -->
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <span class="nav-brand">Kayfa & NGen </span>
+    <a href="#hero" class="nav-link active">نظرة عامة</a>
+    <a href="#sec-summary" class="nav-link">الملخص</a>
+    <a href="#sec-brand" class="nav-link">العلامات</a>
+    <a href="#sec-top" class="nav-link">الأفضل</a>
+    <a href="#sec-charts" class="nav-link">الرسوم</a>
+    <a href="#sec-geo" class="nav-link">الجغرافيا</a>
+    <a href="#sec-format" class="nav-link">المحتوى</a>
+    <a href="#sec-table" class="nav-link">الجدول</a>
+    <a href="#sec-funnel" class="nav-link">القمع</a>
+    <a href="#sec-reco" class="nav-link">التوصيات</a>
+    <a href="#sec-roi" class="nav-link">العائد</a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div class="hero-top">
+      <div class="hero-left">
+        <div class="logo-wrap" style="margin-bottom: 24px;">
+          <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1282.49 354.74" style="height: 44px; width: auto;">
+            <defs><style>.cls-1 { fill: rgb(63, 75, 210); }</style></defs>
+            <path class="cls-1" d="m313.04,273.58c-101.55,0-203.09-.05-304.64.11-6.14,0-8.46-1.41-8.4-8.07.32-34.24.28-68.48.03-102.71-.04-6.14,1.34-8.54,8.05-8.5,50.29.26,100.57.23,150.86.04,5.69-.02,7.85,1.58,7.62,7.42-.38,9.7-.38,19.43,0,29.13.23,5.71-1.65,7.69-7.46,7.66-35.22-.21-70.45.03-105.67-.27-5.65-.05-7.74,1.19-7.82,7.11-.3,23.12-.47,23.12,22.5,23.12,39.6,0,79.2-.14,118.79.12,6.21.04,8.03-1.98,7.95-7.93-.26-19.18.23-38.37-.28-57.54-.2-7.36,2.39-8.91,9.22-8.84,33.76.31,67.54.31,101.3-.01,6.62-.06,8.96,1.51,8.8,8.47-.45,19.17.03,38.37-.26,57.54-.09,5.9,1.64,8.28,7.8,8.3,20.9.08,20.9.25,20.9-20.48,0-15.54.17-31.09-.13-46.62-.11-5.47,1.83-7.31,7.18-7.17,10.44.28,20.9.31,31.33-.02,5.54-.17,7.04,1.96,6.96,7.26-.26,19.67.02,39.34-.21,59-.06,5.72,1.32,8.08,7.77,8.05,59.52-.25,119.04-.23,178.55,0,6.56.02,8.96-2.17,7.99-8.45-.11-.71-.02-1.45-.02-2.18q-.04-18.96-19.38-18.97c-45.91,0-91.83-.1-137.74.13-6.21.03-8.46-1.44-8.4-8.08.32-34.48.26-68.96.03-103.44-.04-5.85,1.93-7.49,7.59-7.47,64.86.15,129.73.17,194.59,0,6.18-.02,8.1,2.13,7.88,8.09-.37,9.94-.32,19.91,0,29.86.17,5.56-1.51,7.65-7.44,7.62-50.04-.22-100.09-.01-150.13-.3-6.63-.04-8.76,2.04-8.1,8.36.43,4.08.48,8.29.01,12.36-.74,6.4,1.59,8.45,8.08,8.41,43.24-.24,86.48-.13,129.73-.13,7.29,0,14.58.16,21.86-.07,4.4-.14,5.99,1.47,5.97,5.92-.12,35.69-.19,71.39.04,107.08.04,6.45-3.54,6.13-7.96,6.13-101.79-.05-203.58-.04-305.37-.04Zm-58.45-44.66c15.99.59,14.49,1.88,14.47-14.67,0-.48,0-.97,0-1.45.07-16.22.97-13.82-13.93-13.88q-15.17-.06-15.15,15.53.01,14.43,14.62,14.47Z"/>
+            <path class="cls-1" d="m837.93,226.68c0-13.36.2-26.72-.1-40.07-.12-5.21,2.09-8.13,6.52-10.11,28.92-12.93,57.83-25.88,86.72-38.88,3.38-1.52,6.39-1.23,9.74.28,31.12,14.01,62.29,27.91,93.47,41.79,1.53.68,3.56.67,3.35,3.03-.2,2.27-1.99,3.02-3.87,3.83-14.88,6.4-29.76,12.8-44.54,19.44-2.26,1.02-6.11,1.48-6.15,4.26-.04,2.95,3.97,3.05,6.16,4.05,14.97,6.83,30.08,13.35,45.2,19.86,2.11.91,4.3,1.76,4.49,4.19.21,2.65-2.46,2.46-4.13,3.21-9.48,4.26-18.97,8.52-28.43,12.83-4.71,2.14-9.06,3.37-14.44.89-27.68-12.74-55.54-25.08-83.33-37.56-2.87-1.29-5.82-2.43-8.59-3.91-1.81-.96-4.93-.78-5.01-3.49-.07-2.65,2.92-3.02,4.75-3.86,11.65-5.37,23.38-10.54,35.09-15.8,1.76-.79,3.55-1.54,5.21-2.51,3.25-1.89,8.99-.68,9.08-6.47.03-2.19-13.64-6.34-16.61-5.04-16.39,7.19-32.72,14.53-49.09,21.78-3.08,1.36-3.12,4.06-3.13,6.75-.03,13.6.11,27.2-.09,40.8-.06,3.82,1.67,5.52,4.84,7.09,23.21,11.45,46.33,23.07,69.49,34.61,12.57,6.27,25.23,12.37,37.71,18.8,3.55,1.83,6.35,2.06,10.14.26,35.62-16.89,71.29-33.69,107.14-50.09,5.53-2.53,7.45-5.85,6.54-11.23-1.39-8.2,2.26-12.29,9.88-14.87,9.39-3.19,18.41-7.46,27.55-11.34,4.89-2.07,7.07-1.16,6.96,4.73-.28,14.57-.29,29.14.02,43.71.1,4.72-2.12,7.22-5.8,9.05-41.35,20.54-82.71,41.05-124.05,61.59-8.87,4.41-17.73,8.85-26.5,13.45-4.46,2.33-8.59,2.36-13.11.05-49.09-25.13-98.22-50.17-147.35-75.21-4.05-2.06-5.95-4.98-5.84-9.82.3-13.35.1-26.71.11-40.07Z"/>
+            <path class="cls-1" d="m920.38,73.11c8.97,6.62,16.41,8.33,25.94,3.37,14.98-7.81,30.8-14.01,46.24-20.97,3.13-1.41,5.87-1.16,9,.27,20.24,9.2,40.57,18.21,60.87,27.29,2.21.99,5.18,1.79,5.45,4.32.36,3.35-3.38,2.86-5.34,3.8-9.37,4.47-19.17,8.11-28.24,13.11-9.8,5.41-16.9-1.43-24-4.97-9.55-4.77-17.29-5.26-26.94-.02-13.32,7.25-27.75,12.45-41.53,18.91-4.74,2.22-8.73,1.52-13.12-.46-28.88-13.02-57.8-25.95-86.71-38.91-.44-.2-.99-.22-1.36-.5-2.28-1.7-6.81-1.8-6.89-4.52-.1-3.51,4.42-3.93,7.13-5.14,28.89-12.95,57.9-25.66,86.75-38.69,5.74-2.6,10.72-2.93,16.5-.01,9.27,4.68,18.9,8.63,28.41,12.83,1.47.65,3.63.34,3.83,2.63.2,2.32-1.41,3.42-3.3,4.25-14.17,6.22-28.35,12.44-42.51,18.68-3.04,1.34-6.04,2.8-10.2,4.74Z"/>
+            <path class="cls-1" d="m1182.11,121.71c-7.23.12-11.68,3.48-16.51,5.56-14.2,6.09-28.16,12.7-42.22,19.11-3.09,1.41-5.98,1.01-9.07-.39-20.04-9.03-40.14-17.95-60.24-26.86-1.52-.68-3.52-.72-3.71-2.89-.21-2.37,1.54-3.34,3.39-4.16,10.81-4.81,21.61-9.66,32.44-14.44,3.02-1.33,6.17-1.35,9.2,0,5.96,2.65,12,5.17,17.78,8.18,4.04,2.11,7.57,2.16,11.71.24,16.66-7.71,33.44-15.15,50.17-22.71,3.52-1.59,7.01-1.66,10.55-.06,30.87,13.86,61.74,27.7,92.59,41.59,1.64.74,4.36.64,4.3,3.16-.05,2.21-2.46,2.9-4.15,3.65-31.11,13.89-62.27,27.66-93.35,41.62-3.48,1.56-6.36,1.29-9.66-.22-10.77-4.93-21.62-9.69-32.46-14.47-1.53-.67-3.62-.84-3.25-3.14.35-2.16,2.35-2.93,4.14-3.71,11.74-5.13,23.5-10.22,35.23-15.38,4.2-1.85,8.42-3.68,12.47-5.84,2.74-1.46,3.65-3.53-.11-4.98-3.58-1.39-6.74-4.01-9.25-3.87Z"/>
+            <path class="cls-1" d="m799.04,127.98c4.01,4.71,10.08,5.56,15.12,8.12,3.6,1.82,5.01,4.04,4.99,7.88-.08,17.96-.08,35.92,0,53.88.02,4.69-1.47,6.26-6.09,4.14-10.77-4.94-21.61-9.74-32.47-14.5-2.82-1.24-4.11-3.19-4.02-6.21.06-1.94.02-3.88.02-5.82.05-17.26-.02-17.1-16.05-23.88-15.15-6.4-30.15-13.15-45.18-19.83-1.7-.76-4.06-1.4-4.14-3.66-.1-2.68,2.69-2.31,4.3-3.04,30.61-13.85,61.25-27.64,91.87-41.46,3.48-1.57,6.96-2.08,10.55-.47,31.12,13.95,62.24,27.89,93.34,41.89,1.59.71,4.39.56,3.93,3.34-.35,2.11-2.64,2.74-4.35,3.52-10.78,4.92-21.6,9.74-32.41,14.59-3.11,1.39-5.99.86-9.06-.55-16.68-7.66-33.41-15.2-50.17-22.69-6.28-2.81-10.08-1.83-20.2,4.77Z"/>
+            <path class="cls-1" d="m1115.33,90.94c-7.66-1.79-14.62-5.9-21.87-9.12-44.45-19.71-88.76-39.73-133.11-59.65-1.63-.73-4.43-.46-4.06-3.19.27-2.03,2.45-2.89,4.22-3.68,11.05-4.91,22.13-9.76,33.19-14.67,2.71-1.21,5.06-.46,7.63.68,40.01,17.75,80.07,35.41,120.11,53.1,10.6,4.68,21.19,9.37,31.81,14,1.39.61,2.77,1.18,3.1,2.76.34,1.63-.58,2.86-2.01,3.48-12.2,5.28-24.42,10.5-36.65,15.72-.66.28-1.4.35-2.36.58Z"/>
+            <path class="cls-1" d="m1055.72,174.15c-7.53-3.24-15.32-6.51-23.04-9.94-23.61-10.5-47.21-21.05-70.78-31.65-2.35-1.06-5.87-1.68-5.86-4.71.01-2.83,3.66-2.74,5.71-3.7,10.51-4.92,21.16-9.51,31.71-14.35,2.41-1.11,4.34-1.08,6.83.04,29.29,13.22,58.69,26.18,87.92,39.54,3.01,1.37,8.5.23,8.71,5.05.24,5.46-5.75,4.2-8.82,5.8-8.56,4.47-17.56,8.13-26.41,12.03-1.76.77-3.68,1.18-5.95,1.89Z"/>
+            <path class="cls-1" d="m42.12,112.09c-2.41-7.93,2.73-11.74,10.37-15.44,30.18-14.61,60.07-29.84,90.03-44.91,4.51-2.27,6.86-1.82,6.66,3.87-.76,21.43,4.28,15.9-17,26.69-27.54,13.95-55.31,27.44-82.92,41.24-6.58,3.29-7.06,3.15-7.12-4.32-.02-1.94,0-3.88,0-7.13Z"/>
+            <path class="cls-1" d="m268.71,331.74c0-5.34.16-10.68-.06-16-.17-4.26,1.25-6.18,5.81-6.1,11.16.21,22.32.18,33.48,0,4.51-.07,5.93,1.86,5.86,6.13-.16,10.91-.13,21.83.01,32.74.06,4.74-1.99,6.34-6.64,6.23-10.67-.24-21.35-.26-32.02,0-4.71.11-6.67-1.51-6.48-6.26.22-5.57.05-11.15.05-16.73Z"/>
+            <path class="cls-1" d="m365.57,309.68c5.33,0,10.67.14,16-.05,4.27-.15,6.16,1.4,6.09,5.88-.18,11.15-.15,22.3.01,33.44.07,4.56-2.09,5.84-6.26,5.78-10.91-.14-21.82-.15-32.73,0-5.05.07-6.9-2.22-6.82-7.08.16-10.42.2-20.85-.02-31.26-.11-5.13,2.11-6.93,7-6.75,5.57.21,11.15.05,16.73.04Z"/>
+            <path class="cls-1" d="m1119.59,201.96c-3.73-.26-6.59-2.23-9.69-3.58-9.3-4.05-18.62-8.06-27.96-12.04-1.65-.7-3.1-1.52-3.32-3.46-.21-1.8,1.07-2.34,2.53-2.96,11.56-4.96,23.09-9.97,34.59-15.06,2.54-1.12,4.69-1.55,7.5-.26,11.64,5.34,23.44,10.34,35.18,15.45,3.71,1.61,2.78,4.1.27,5.25-12.53,5.73-25.23,11.1-37.88,16.56-.42.18-.96.08-1.22.1Z"/>
+            <path class="cls-1" d="m1099.49,209.45c.11,2.42-1.54,2.61-2.81,3.19-12.06,5.5-24.13,11-36.19,16.51-1.92.88-3.74.64-5.58-.21-11.39-5.25-22.71-10.65-34.21-15.65-4.42-1.92-5.19-3.8-.68-5.92,11.99-5.65,24.12-11.02,36.26-16.34,1.17-.51,3-.32,4.22.22,11.91,5.27,23.76,10.67,35.61,16.09,1.27.58,2.38,1.49,3.38,2.12Z"/>
+            <path class="cls-1" d="m291.04,81.65c5.34,0,10.69.27,16-.08,4.42-.29,6.25,1.27,6.2,5.69-.12,10.91-.1,21.82-.04,32.74.02,3.89-1.4,5.71-5.58,5.64-10.91-.18-21.84-.2-32.75.02-4.54.09-5.96-1.88-5.9-6.09.13-10.67.21-21.34,0-32.01-.09-4.51,1.77-6.03,6.05-5.87,5.33.2,10.67.05,16.01.05,0-.03,0-.05,0-.08Z"/>
+            <path class="cls-1" d="m819.09,227.13c0,2.1-.04,3.79,0,5.48.13,4.24-2,5.14-5.52,3.62-10.61-4.59-21.21-9.19-31.76-13.92-4.49-2.01-7.64-16.14-4.59-19.93,1.6-1.98,3.58-1.18,5.3-.42,10.81,4.77,21.5,9.8,32.38,14.41,5.67,2.4,3.79,7.08,4.18,10.76Z"/>
+          </svg>
+        </div>
+        <div class="hero-tag"><span class="dot"></span> Meta Ads Manager</div>
+        <h1>تقرير أداء <span>الحملات الإعلانية</span></h1>
+        <p class="sub">تحليل شامل لحملات كيفَ وانجن على منصة ميتا — السوق السوري مع امتداد لدول مجاورة</p>
+        <div class="hero-period">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+          1 مايو 2026 — 23 مايو 2026 &nbsp;·&nbsp; 23 يومًا
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-val">$270</div>
+          <div class="hero-stat-lbl">إجمالي الإنفاق</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-val">883K</div>
+          <div class="hero-stat-lbl">إجمالي الظهور</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-val">485K</div>
+          <div class="hero-stat-lbl">إجمالي الوصول</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-val amber">2,151</div>
+          <div class="hero-stat-lbl">محادثات مُبدأة</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-val">1,807</div>
+          <div class="hero-stat-lbl">تواصلات جديدة</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="container">
+
+<!-- ═══════════════════ 1: SUMMARY ═══════════════════ -->
+<div class="sec" id="sec-summary">
+  <div class="sec-head">
+    <div class="sec-num">1</div>
+    <h2 class="sec-title">الملخص التنفيذي</h2>
+  </div>
+  <div class="g3">
+    <div class="ins">
+      <div class="ins-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10M18 20V4M6 20v-4"/></svg></div>
+      <div class="ins-title">أفضل كفاءة تكلفة</div>
+      <div class="ins-text">حملة <strong style="color:var(--accent);">كاروسيل ملهم</strong> حققت أقل تكلفة للمحادثة ($0.060) مع أعلى عدد محادثات (513) — مقابل $30.98 فقط. هذا هو المعيار الذهبي لحملات الرسائل.</div>
+    </div>
+    <div class="ins">
+      <div class="ins-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
+      <div class="ins-title">أفضل أداء بوست</div>
+      <div class="ins-text">حملة <strong style="color:var(--accent);">ابنك مو بس يستخدم الAI</strong> حققت 306 محادثة بتكلفة $0.054 فقط — ثاني أفضل تكلفة بعد الكاروسيل. حملة <strong>لا تخلي الAI يسرقه</strong> أيضًا بنفس الكفاءة ($0.071).</div>
+    </div>
+    <div class="ins">
+      <div class="ins-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0zM12 9v4M12 17h.01"/></svg></div>
+      <div class="ins-title">نقاط ضعف جغرافية</div>
+      <div class="ins-text">حملات الإمارات والسعودية أظهرت تكلفة مرتفعة جدًا: $3.25/محادثة في الإمارات و$1.02/محادثة في السعودية — مقارنة بـ $0.06–0.17 في سوريا. السوق السوري أكثر كفاءة بـ <strong style="color:var(--coral);">15–50x</strong>.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ 2: BRAND SPLIT ═══════════════════ -->
+<div class="sec" id="sec-brand">
+  <div class="sec-head">
+    <div class="sec-num">2</div>
+    <h2 class="sec-title">توزيع الأداء حسب العلامة التجارية</h2>
+  </div>
+  <div class="g2">
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title">كيفَ (Kayfa)</span>
+        <span class="badge badge-default">11 حملة فعّالة</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-val">$147.51</span>
+        <span class="metric-unit">USD</span>
+      </div>
+      <div class="metric-lbl">إجمالي الإنفاق</div>
+      <div class="mini-grid">
+        <div class="mini-item"><div class="mini-val">780</div><div class="mini-lbl">محادثات</div></div>
+        <div class="mini-item"><div class="mini-val">$0.189</div><div class="mini-lbl">متوسط تكلفة/محادثة</div></div>
+        <div class="mini-item"><div class="mini-val">358K</div><div class="mini-lbl">ظهور</div></div>
+        <div class="mini-item"><div class="mini-val">221K</div><div class="mini-lbl">وصول</div></div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-head">
+        <span class="card-title">انجن (NGen)</span>
+        <span class="badge badge-gold">7 حملات فعّالة</span>
+      </div>
+      <div class="metric-row">
+        <span class="metric-val accent">$122.60</span>
+        <span class="metric-unit">USD</span>
+      </div>
+      <div class="metric-lbl">إجمالي الإنفاق</div>
+      <div class="mini-grid">
+        <div class="mini-item"><div class="mini-val accent">1,282</div><div class="mini-lbl">محادثات</div></div>
+        <div class="mini-item"><div class="mini-val accent">$0.096</div><div class="mini-lbl">متوسط تكلفة/محادثة</div></div>
+        <div class="mini-item"><div class="mini-val">526K</div><div class="mini-lbl">ظهور</div></div>
+        <div class="mini-item"><div class="mini-val">264K</div><div class="mini-lbl">وصول</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="brand-compare">
+    <div class="card-title" style="margin-bottom:20px;">مقارنة كفاءة العلامتين</div>
+    <div class="brand-row">
+      <div class="brand-label">
+        <span class="brand-label-name">كيفَ</span>
+        <span class="brand-label-val dim">$0.189/محادثة <span style="font-weight:400; color:var(--text-muted);">— 100%</span></span>
+      </div>
+      <div class="brand-bar"><div class="brand-bar-fill muted" style="width:100%;"></div></div>
+    </div>
+    <div class="brand-row">
+      <div class="brand-label">
+        <span class="brand-label-name">انجن</span>
+        <span class="brand-label-val">$0.096/محادثة <span style="font-weight:400; color:var(--text-muted);">— 51% (أكثر كفاءة 2×)</span></span>
+      </div>
+      <div class="brand-bar"><div class="brand-bar-fill accent" style="width:51%;"></div></div>
+    </div>
+    <div class="brand-note">
+      حملات <strong style="color:var(--accent);">انجن</strong> أكثر كفاءة بنسبة ~2× من كيفَ في توليد المحادثات. الفارق يعود بشكل رئيسي لحملة "كاروسيل ملهم" التي حققت 513 محادثة بتكلفة منخفضة جدًا.<br>
+      حملات <strong>كيفَ</strong> تتفوق في حجم الوصول الإجمالي وحققت 780 محادثة رغم التكلفة الأعلى لكل محادثة.
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ 3: TOP CAMPAIGNS ═══════════════════ -->
+<div class="sec" id="sec-top">
+  <div class="sec-head">
+    <div class="sec-num">3</div>
+    <h2 class="sec-title">أفضل 6 حملات أداءً</h2>
+  </div>
+  <div class="tbl-wrap">
+    <div class="tbl-bar">
+      <span class="tbl-bar-title">الترتيب حسب عدد المحادثات المُبدأة</span>
+      <span class="badge badge-gold">Top Performers</span>
+    </div>
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr><th>#</th><th>اسم الحملة</th><th>الحالة</th><th>الإنفاق</th><th>محادثات</th><th>تكلفة/محادثة</th><th>ظهور</th><th>وصول</th><th>تواصلات جديدة</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="n accent">1</td>
+            <td>كاروسيل ملهم</td>
+            <td><span class="st st-recent"><span class="st-dot"></span>مكتملة حديثًا</span></td>
+            <td class="n mono">$30.98</td>
+            <td class="n accent">513</td>
+            <td class="n accent mono">$0.060</td>
+            <td class="n mono">167,545</td>
+            <td class="n mono">59,467</td>
+            <td class="n mono">439</td>
+          </tr>
+          <tr>
+            <td class="n accent">2</td>
+            <td>ابنك مو بس يستخدم الAI</td>
+            <td><span class="st st-done"><span class="st-dot"></span>مكتملة</span></td>
+            <td class="n mono">$16.56</td>
+            <td class="n mono">306</td>
+            <td class="n accent mono">$0.054</td>
+            <td class="n mono">109,964</td>
+            <td class="n mono">65,779</td>
+            <td class="n mono">242</td>
+          </tr>
+          <tr>
+            <td class="n accent">3</td>
+            <td>بوست لا تنافس الAI</td>
+            <td><span class="st st-stop"><span class="st-dot"></span>متوقفة</span></td>
+            <td class="n mono">$32.73</td>
+            <td class="n mono">286</td>
+            <td class="n mono">$0.114</td>
+            <td class="n mono">127,265</td>
+            <td class="n mono">74,172</td>
+            <td class="n mono">238</td>
+          </tr>
+          <tr>
+            <td class="n accent">4</td>
+            <td>لا تخلي الAI يسرقه</td>
+            <td><span class="st st-done"><span class="st-dot"></span>مكتملة</span></td>
+            <td class="n mono">$13.99</td>
+            <td class="n mono">198</td>
+            <td class="n accent mono">$0.071</td>
+            <td class="n mono">81,367</td>
+            <td class="n mono">47,946</td>
+            <td class="n mono">149</td>
+          </tr>
+          <tr>
+            <td class="n accent">5</td>
+            <td>فل ستاك ريل</td>
+            <td><span class="st st-active"><span class="st-dot"></span>نشطة</span></td>
+            <td class="n mono">$16.39</td>
+            <td class="n mono">143</td>
+            <td class="n mono">$0.115</td>
+            <td class="n mono">74,767</td>
+            <td class="n mono">30,754</td>
+            <td class="n mono">127</td>
+          </tr>
+          <tr>
+            <td class="n accent">6</td>
+            <td>العمر مجرد رقم</td>
+            <td><span class="st st-done"><span class="st-dot"></span>مكتملة</span></td>
+            <td class="n mono">$15.14</td>
+            <td class="n mono">135</td>
+            <td class="n mono">$0.112</td>
+            <td class="n mono">51,052</td>
+            <td class="n mono">27,177</td>
+            <td class="n mono">115</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ 4: CHARTS ═══════════════════ -->
+<div class="sec" id="sec-charts">
+  <div class="sec-head">
+    <div class="sec-num">4</div>
+    <h2 class="sec-title">التحليل البصري</h2>
+  </div>
+  <div class="g2">
+    <div class="chart-box">
+      <div class="chart-title">
+        <span class="chart-title-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 20V10M12 20V4M6 20v-6"/></svg></span>
+        تكلفة المحادثة المُبدأة (USD) — السوق السوري
+      </div>
+      <canvas id="costChart" height="320"></canvas>
+    </div>
+    <div class="chart-box">
+      <div class="chart-title">
+        <span class="chart-title-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.21 15.89A10 10 0 1 1 8 2.83M22 12A10 10 0 0 0 12 2v10z"/></svg></span>
+        توزيع الإنفاق: كيفَ vs انجن
+      </div>
+      <canvas id="brandDonut" height="320"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ 5: GEOGRAPHY ═══════════════════ -->
+<div class="sec" id="sec-geo">
+  <div class="sec-head">
+    <div class="sec-num">5</div>
+    <h2 class="sec-title">التحليل الجغرافي</h2>
+  </div>
+  <div class="g3">
+    <div class="card geo-card">
+      <div class="geo-header">
+        <span class="card-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-left:8px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>سوريا (السوق الرئيسي)</span>
+        <span class="badge badge-green">الأكثر كفاءة</span>
+      </div>
+      <div class="geo-body">
+        <div class="mini-grid" style="margin-top:0;">
+          <div class="mini-item"><div class="mini-val accent">$0.06–0.17</div><div class="mini-lbl">تكلفة/محادثة</div></div>
+          <div class="mini-item"><div class="mini-val">2,075</div><div class="mini-lbl">محادثات</div></div>
+        </div>
+        <div class="geo-desc">
+          السوق الأكثر كفاءة بفارق شاسع. أعلى حجم محادثات بأقل تكلفة. الحملات هنا هي القلب النابض للحساب.
+        </div>
+      </div>
+    </div>
+    <div class="card geo-card">
+      <div class="geo-header">
+        <span class="card-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-left:8px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>مصر</span>
+        <span class="badge badge-amber">تحت التجربة</span>
+      </div>
+      <div class="geo-body">
+        <div class="mini-grid" style="margin-top:0;">
+          <div class="mini-item"><div class="mini-val" style="color:var(--amber);">$0.31–0.88</div><div class="mini-lbl">تكلفة/محادثة</div></div>
+          <div class="mini-item"><div class="mini-val">49</div><div class="mini-lbl">محادثات</div></div>
+        </div>
+        <div class="geo-desc">
+          تكلفة أعلى 3–8× من سوريا. حملة "فل ستاك مصر 2" تحسن الأداء ($0.31). تحتاج مزيد اختبار وتحسين الاستهداف.
+        </div>
+      </div>
+    </div>
+    <div class="card geo-card">
+      <div class="geo-header">
+        <span class="card-title"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-left:8px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>السعودية & الإمارات</span>
+        <span class="badge badge-coral">غير مجدية حاليًا</span>
+      </div>
+      <div class="geo-body">
+        <div class="mini-grid" style="margin-top:0;">
+          <div class="mini-item"><div class="mini-val" style="color:var(--coral);">$1.02–3.25</div><div class="mini-lbl">تكلفة/محادثة</div></div>
+          <div class="mini-item"><div class="mini-val">28</div><div class="mini-lbl">محادثات</div></div>
+        </div>
+        <div class="geo-desc">
+          تكلفة 15–50× أعلى من سوريا. $46.33 إنفاق مقابل 28 محادثة فقط. يُنصح بإيقاف أو إعادة هيكلة كاملة.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ 6: CONTENT FORMAT ═══════════════════ -->
+<div class="sec" id="sec-format">
+  <div class="sec-head">
+    <div class="sec-num">6</div>
+    <h2 class="sec-title">تحليل أنماط المحتوى</h2>
+  </div>
+  <div class="tbl-wrap">
+    <div class="tbl-bar">
+      <span class="tbl-bar-title">مقارنة أداء صيغ المحتوى</span>
+    </div>
+    <div class="tbl-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>صيغة المحتوى</th>
+            <th>عدد الحملات</th>
+            <th>إجمالي الإنفاق</th>
+            <th>محادثات</th>
+            <th>متوسط تكلفة/محادثة</th>
+            <th>الكفاءة النسبية</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:700; color:var(--accent);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-left:8px;"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg>كاروسيل</td>
+            <td class="n mono">3</td>
+            <td class="n mono">$55.87</td>
+            <td class="n accent mono">520</td>
+            <td class="n accent mono">$0.107</td>
+            <td><span style="color:var(--accent); font-weight:800; font-size:14px; letter-spacing:1px;">★★★★★</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:700;"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-left:8px;"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>بوست</td>
+            <td class="n mono">9</td>
+            <td class="n mono">$136.84</td>
+            <td class="n mono">1,124</td>
+            <td class="n mono">$0.122</td>
+            <td><span style="font-weight:800; font-size:14px; letter-spacing:1px; color:var(--text-sec);">★★★★</span></td>
+          </tr>
+          <tr>
+            <td style="font-weight:700; color:var(--text-sec);"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-left:8px;"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg>ريل (Reel)</td>
+            <td class="n mono">6</td>
+            <td class="n mono">$77.40</td>
+            <td class="n mono">507</td>
+            <td class="n mono">$0.153</td>
+            <td><span style="color:var(--text-muted); font-weight:800; font-size:14px; letter-spacing:1px;">★★★</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <p style="margin-top:8px; font-size:11px; color:var(--text-muted);">*كل حملة لا تحوي "ريل" أو "كاروسيل" في اسمها صُنّفت كـ بوست</p>
+  <div style="margin-top:24px;" class="g3">
+    <div class="ins">
+      <div class="ins-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg></div>
+      <div class="ins-title">الكاروسيل يتفوق في الكفاءة</div>
+      <div class="ins-text">متوسط تكلفة محادثة $0.107 — الأقل بين جميع الصيغ. محتوى "كاروسيل ملهم" أنتج 513 محادثة بأقل إنفاق. يُوصى بتكثيف إنتاج محتوى كاروسيل مشابه.</div>
+    </div>
+    <div class="ins">
+      <div class="ins-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+      <div class="ins-title">البوست يحقق أعلى حجم</div>
+      <div class="ins-text">أكبر عدد محادثات إجمالي (1,124) بتكلفة معقولة ($0.122). حملات "لا تنافس الAI" و"ابنك مو بس" أثبتت أن البوست القوي المضامين يحقق نتائج ممتازة.</div>
+    </div>
+    <div class="ins">
+      <div class="ins-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg></div>
+      <div class="ins-title">الريل يحتاج تحسين</div>
+      <div class="ins-text">أعلى تكلفة محادثة ($0.153) رغم جودة المحتوى البصري. قد يعود السبب للاستهداف أو طول الريل. جرّب تقصير الريلز وتضييق الاستهداف المهني.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ 7: FULL TABLE ═══════════════════ -->
+<div class="sec" id="sec-table">
+  <div class="sec-head">
+    <div class="sec-num">7</div>
+    <h2 class="sec-title">جدول جميع الحملات</h2>
+  </div>
+  <div class="tbl-wrap">
+    <div class="tbl-bar">
+      <span class="tbl-bar-title">27 حملة — 1 مايو إلى 23 مايو 2026</span>
+      <span class="badge badge-default">Full Data</span>
+    </div>
+    <div class="tbl-scroll">
+      <table class="tbl-responsive-card">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>الحملة</th>
+            <th>الحالة</th>
+            <th>الصيغة</th>
+            <th>النتائج</th>
+            <th>مؤشر</th>
+            <th>الإنفاق</th>
+            <th>تكلفة/نتيجة</th>
+            <th>ظهور</th>
+            <th>وصول</th>
+            <th>محادثات</th>
+            <th>تواصلات جديدة</th>
+          </tr>
+        </thead>
+        <tbody id="tbl"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ 8: FUNNEL ═══════════════════ -->
+<div class="sec" id="sec-funnel">
+  <div class="sec-head">
+    <div class="sec-num">8</div>
+    <h2 class="sec-title">قمع التحويل الكلي</h2>
+  </div>
+  <div class="funnel">
+    <div class="card" style="padding:36px;">
+      <div style="text-align:center; margin-bottom:28px;">
+        <div style="font-size:11px; font-weight:600; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px;">من الظهور إلى المحادثة</div>
+      </div>
+
+      <div class="funnel-step">
+        <div class="funnel-bar-container">
+          <div class="funnel-bar-bg blue">
+            <div class="funnel-label">
+              <span class="funnel-label-name">الظهور (Impressions)</span>
+              <span class="funnel-label-val">883,663</span>
+            </div>
+            <div class="prog-wrap" style="height:6px; margin-top:6px;">
+              <div class="prog-bar" style="width:100%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center; padding:8px 0;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--text-muted)" style="transform:rotate(180deg);"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+      </div>
+
+      <div class="funnel-step">
+        <div class="funnel-bar-container">
+          <div class="funnel-bar-bg light">
+            <div class="funnel-label">
+              <span class="funnel-label-name">الوصول (Reach)</span>
+              <span class="funnel-label-val">485,463</span>
+            </div>
+            <div class="funnel-pct">54.9% من الظهور</div>
+            <div class="prog-wrap" style="height:6px; margin-top:6px;">
+              <div class="prog-bar" style="width:54.9%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center; padding:8px 0;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--text-muted)" style="transform:rotate(180deg);"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+      </div>
+
+      <div class="funnel-step">
+        <div class="funnel-bar-container">
+          <div class="funnel-bar-bg amber-bg">
+            <div class="funnel-label">
+              <span class="funnel-label-name">محادثات مُبدأة</span>
+              <span class="funnel-label-val accent">2,151</span>
+            </div>
+            <div class="funnel-pct">0.44% من الوصول</div>
+            <div class="prog-wrap" style="height:6px; margin-top:6px;">
+              <div class="prog-bar amber" style="width:44%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="text-align:center; padding:8px 0;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="var(--text-muted)" style="transform:rotate(180deg);"><path d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"/></svg>
+      </div>
+
+      <div class="funnel-step">
+        <div class="funnel-bar-container">
+          <div class="funnel-bar-bg blue">
+            <div class="funnel-label">
+              <span class="funnel-label-name">تواصلات جديدة</span>
+              <span class="funnel-label-val accent">1,807</span>
+            </div>
+            <div class="funnel-pct">84% من المحادثات</div>
+            <div class="prog-wrap" style="height:6px; margin-top:6px;">
+              <div class="prog-bar" style="width:84%;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Key Metrics Box -->
+      <div style="margin-top:32px; padding:20px; background:var(--accent-soft); border-radius:var(--radius-sm); border:1px solid var(--accent-mid);">
+        <div style="font-size:13px; font-weight:700; margin-bottom:14px; color:var(--accent);">مؤشرات رئيسية</div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px;">
+          <div style="padding:12px 16px; background:var(--bg-surface); border-radius:var(--radius-xs); border:1px solid var(--border);">
+            <div style="font-family:var(--font-mono); font-size:11px; color:var(--text-muted); margin-bottom:4px;">معدل الوصول/الظهور</div>
+            <div style="font-family:var(--font-display); font-size:22px; font-weight:800; color:var(--accent);">54.9%</div>
+          </div>
+          <div style="padding:12px 16px; background:var(--bg-surface); border-radius:var(--radius-xs); border:1px solid var(--border);">
+            <div style="font-family:var(--font-mono); font-size:11px; color:var(--text-muted); margin-bottom:4px;">معدل المحادثة/الوصول</div>
+            <div style="font-family:var(--font-display); font-size:22px; font-weight:800; color:var(--amber);">0.44%</div>
+          </div>
+          <div style="padding:12px 16px; background:var(--bg-surface); border-radius:var(--radius-xs); border:1px solid var(--border);">
+            <div style="font-family:var(--font-mono); font-size:11px; color:var(--text-muted); margin-bottom:4px;">نسبة التواصلات الجديدة</div>
+            <div style="font-family:var(--font-display); font-size:22px; font-weight:800; color:var(--accent);">84%</div>
+          </div>
+          <div style="padding:12px 16px; background:var(--bg-surface); border-radius:var(--radius-xs); border:1px solid var(--border);">
+            <div style="font-family:var(--font-mono); font-size:11px; color:var(--text-muted); margin-bottom:4px;">تكلفة كل محادثة</div>
+            <div style="font-family:var(--font-display); font-size:22px; font-weight:800; color:var(--accent);">$0.126</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ 9: RECOMMENDATIONS ═══════════════════ -->
+<div class="sec" id="sec-reco">
+  <div class="sec-head">
+    <div class="sec-num">9</div>
+    <h2 class="sec-title">التوصيات الاستراتيجية</h2>
+  </div>
+  <ol class="reco">
+    <li data-n="1">
+      <strong style="color:var(--accent);">مضاعفة الاستثمار في الكاروسيل.</strong> محتوى "كاروسيل ملهم" أثبت كفاءة استثنائية ($0.060/محادثة). أنشئ 3–5 حملات كاروسيل أسبوعيًا بنفس النمط التعليمي الملهم.
+    </li>
+    <li data-n="2">
+      <strong style="color:var(--coral);">إيقاف الحملات السعودية والإماراتية فورًا.</strong> تكلفة $1–3/محادثة غير مبررة اقتصاديًا. أعد توجيه الميزانية ($46+) للسوق السوري حيث الكفاءة 15–50× أعلى.
+    </li>
+    <li data-n="3">
+      <strong style="color:var(--amber);">تحسين حملات مصر.</strong> "فل ستاك مصر 2" أظهرت تحسنًا ($0.31/محادثة) مقارنة بالنسخة الأولى ($0.88). استمر في الاختبار مع تضييق الاستهداف المهني.
+    </li>
+    <li data-n="4">
+      <strong>تنظيف الحملات المتوقفة.</strong> 9 حملات بإنفاق $0 — أرشفة أو حذف لتقليل الفوضى في الحساب. ركز على الفعّالة والنشطة فقط.
+    </li>
+    <li data-n="5">
+      <strong style="color:var(--accent);">استثمار محتوى الخوف من الAI.</strong> حملتا "لا تخلي الAI يسرقه" و"لا تنافس الAI" حققتا أعلى ظهور ومحادثات. أنتج محتوى مشابهًا بزوايا جديدة.
+    </li>
+    <li data-n="6">
+      <strong style="color:var(--green);">تفعيل "ريل الأمن السيبراني SOC".</strong> حملة بميزانية $4/يوم لم تنطلق بعد. محتوى الأمن السيبراني له طلب عالٍ في السوق السوري. فعّلها فورًا.
+    </li>
+  </ol>
+</div>
+
+<!-- ═══════════════════ 10: ROI ═══════════════════ -->
+<div class="sec" id="sec-roi">
+  <div class="sec-head">
+    <div class="sec-num">10</div>
+    <h2 class="sec-title">ملخص العائد على الاستثمار</h2>
+  </div>
+  <div class="card" style="padding:32px;">
+    <div class="roi-grid">
+      <div class="roi-row">
+        <span class="roi-lbl">إجمالي الإنفاق</span>
+        <span class="roi-val accent">$270.11</span>
+      </div>
+      <div class="roi-row">
+        <span class="roi-lbl">تكلفة كل محادثة مُبدأة</span>
+        <span class="roi-val">$0.126</span>
+      </div>
+      <div class="roi-row">
+        <span class="roi-lbl">تكلفة كل تواصل جديد</span>
+        <span class="roi-val">$0.149</span>
+      </div>
+      <div class="roi-row">
+        <span class="roi-lbl">معدل الظهور لكل دولار</span>
+        <span class="roi-val">3,272</span>
+      </div>
+      <div class="roi-row">
+        <span class="roi-lbl">معدل الوصول لكل دولار</span>
+        <span class="roi-val">1,798</span>
+      </div>
+      <div class="roi-row" style="background:var(--accent-soft); border-color:var(--accent-mid);">
+        <span class="roi-lbl" style="font-weight:700; color:var(--accent);">نسبة التواصلات الجديدة من إجمالي المحادثات</span>
+        <span class="roi-val accent">84%</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+<!-- ─── FOOTER ─── -->
+<footer class="footer">
+  <div class="footer-brand">Kayfa & NGen</div>
+  <div class="footer-text">
+    تقرير أداء الحملات الإعلانية — السوق السوري<br>
+    التقرير مقدّم من محمد خير عابوره مُستخلص من بيانات Meta Ads Manager
+  </div>
+  <div class="footer-meta">
+    <span>الفترة: 1–23 مايو 2026</span>
+    <span>·</span>
+    <span>23 يومًا</span>
+    <span>·</span>
+    <span>27 حملة</span>
+  </div>
+</footer>
+
+<script>
+/* ─── Sticky Nav Scroll ─── */
+const nav = document.getElementById('nav');
+const navLinks = document.querySelectorAll('.nav-link');
+const sections = document.querySelectorAll('.sec, .hero');
+
+navLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    e.preventDefault();
+    const id = link.getAttribute('href').substring(1);
+    const target = document.getElementById(id);
+    if (target) {
+      const offset = 64; // Adjust for sticky nav height
+      const targetPosition = target.offsetTop - offset;
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+    }
+  });
+});
+
+window.addEventListener('scroll', () => {
+  nav.classList.toggle('scrolled', window.scrollY > 10);
+
+  let current = '';
+  sections.forEach(s => {
+    const top = s.offsetTop - 80;
+    if (window.scrollY >= top) current = s.id;
+  });
+  navLinks.forEach(l => {
+    l.classList.toggle('active', l.getAttribute('href') === '#' + current);
+  });
+}, { passive: true });
+
+/* ─── Charts ─── */
+Chart.defaults.color = '#64748B';
+Chart.defaults.borderColor = '#E2E8F0';
+Chart.defaults.font.family = "'IBM Plex Sans Arabic','Tajawal',sans-serif";
+
+const primaryBlue = 'rgb(63, 75, 210)';
+const primaryBlueA = 'rgba(63, 75, 210, 0.12)';
+const primaryBlueB = 'rgba(63, 75, 210, 0.35)';
+const amberColor = 'rgba(217, 119, 6, 0.6)';
+const amberBorder = 'rgb(217, 119, 6)';
+const mutedA = 'rgba(100, 116, 139, 0.12)';
+const mutedBorder = 'rgb(100, 116, 139)';
+
+const domestic = [
+  {name:'ابنك مو يستخدم AI', c:0.054},
+  {name:'كاروسيل ملهم', c:0.060},
+  {name:'لا تخلي AI يسرقه', c:0.071},
+  {name:'العمر مجرد رقم', c:0.112},
+  {name:'فل ستاك ريل', c:0.115},
+  {name:'بوست لا تنافس AI', c:0.114},
+  {name:'بوست لا تنافس مكرر', c:0.162},
+  {name:'محاضرة الرقة والدير', c:0.168},
+  {name:'ريل اختصاص AI', c:0.169},
+  {name:'ريل AI مكرر سوريا', c:0.156},
+  {name:'ريل تحليل بيانات', c:0.135},
+  {name:'ريل بريميوم', c:0.239},
+  {name:'ريل بريميوم Copy', c:0.213},
+  {name:'فل ستاك مصر 2', c:0.312},
+].sort((a,b) => a.c - b.c);
+
+new Chart(document.getElementById('costChart'), {
+  type: 'bar',
+  data: {
+    labels: domestic.map(d => d.name),
+    datasets: [{
+      data: domestic.map(d => d.c),
+      backgroundColor: domestic.map(d => d.c < 0.08 ? primaryBlueB : d.c < 0.15 ? primaryBlueA : d.c < 0.25 ? mutedA : amberColor),
+      borderColor: domestic.map(d => d.c < 0.08 ? primaryBlue : d.c < 0.15 ? primaryBlue : d.c < 0.25 ? mutedBorder : amberBorder),
+      borderWidth: 1,
+      borderRadius: 4,
+      barPercentage: 0.7,
+    }]
+  },
+  options: {
+    indexAxis: 'y',
+    responsive: true,
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        backgroundColor: '#0F172A',
+        titleFont: { family: "'Tajawal'" },
+        bodyFont: { family: "'JetBrains Mono'", size: 13 },
+        padding: 12,
+        cornerRadius: 8,
+        callbacks: { label: ctx => ' $' + ctx.parsed.x.toFixed(3) }
+      }
+    },
+    scales: {
+      x: {
+        beginAtZero: true,
+        grid: { color: '#F1F5F9' },
+        ticks: { callback: v => '$'+v, font: { family: "'JetBrains Mono'", size: 11 } }
+      },
+      y: {
+        grid: { display: false },
+        ticks: { font: { size: 11.5 } }
+      }
+    }
+  }
+});
+
+new Chart(document.getElementById('brandDonut'), {
+  type: 'doughnut',
+  data: {
+    labels: ['كيفَ', 'انجن'],
+    datasets: [{
+      data: [147.51, 122.60],
+      backgroundColor: ['#E2E8F0', primaryBlueA],
+      borderColor: ['#CBD5E1', primaryBlue],
+      borderWidth: 2,
+      hoverBorderWidth: 3,
+    }]
+  },
+  options: {
+    responsive: true,
+    cutout: '70%',
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: {
+          padding: 20,
+          boxWidth: 12,
+          boxHeight: 12,
+          borderRadius: 3,
+          font: { size: 13, weight: '600' },
+          usePointStyle: true,
+          pointStyle: 'rectRounded'
+        }
+      },
+      tooltip: {
+        backgroundColor: '#0F172A',
+        bodyFont: { family: "'JetBrains Mono'", size: 13 },
+        padding: 12,
+        cornerRadius: 8,
+        callbacks: {
+          label: ctx => ' $' + ctx.parsed.toFixed(2) + ' (' + Math.round(ctx.parsed / 270.11 * 100) + '%)'
+        }
+      }
+    }
+  }
+});
+
+/* ─── Full Table ─── */
+const all = [
+  {n:'حملة رسائل - ريل تحليل بيانات جديد',s:'completed',f:'ريل',res:'—',ind:'—',sp:'$0',cpr:'—',imp:'0',r:'0',cv:'—',nw:'—'},
+  {n:'رسائل - كيفَ - 4 مسارات بوست',s:'completed',f:'بوست',res:'—',ind:'—',sp:'$0',cpr:'—',imp:'0',r:'0',cv:'—',nw:'—'},
+  {n:'حملة رسائل - انجن - تحويل المستهلك',s:'completed',f:'بوست',res:'—',ind:'—',sp:'$0',cpr:'—',imp:'0',r:'0',cv:'—',nw:'—'},
+  {n:'حملة الترويج للبريميوم - كيفَ',s:'inactive',f:'بوست',res:'—',ind:'—',sp:'$0',cpr:'—',imp:'0',r:'0',cv:'—',nw:'—'},
+  {n:'ريل ترويج بريميوم كيفَ',s:'inactive',f:'ريل',res:'40',ind:'محادثة',sp:'$9.56',cpr:'$0.239',imp:'15,106',r:'10,022',cv:'40',nw:'36'},
+  {n:'حملة رسائل - كيفَ - ريل 6 شهور',s:'completed',f:'ريل',res:'—',ind:'—',sp:'$0',cpr:'—',imp:'0',r:'0',cv:'—',nw:'—'},
+  {n:'حملة رسائل - انجن - ابنك رح يسألك',s:'completed',f:'بوست',res:'—',ind:'—',sp:'$0',cpr:'—',imp:'0',r:'0',cv:'—',nw:'—'},
+  {n:'حملة رسائل - كيفَ - ريل اختصاص الAI',s:'completed',f:'ريل',res:'83',ind:'محادثة',sp:'$14.03',cpr:'$0.169',imp:'22,701',r:'15,123',cv:'83',nw:'63'},
+  {n:'حملة رسائل - انجن - لا تخلي الAI يسرقه',s:'completed',f:'بوست',res:'198',ind:'محادثة',sp:'$13.99',cpr:'$0.071',imp:'81,367',r:'47,946',cv:'198',nw:'149'},
+  {n:'حملة رسائل - كيفَ - ريل تحليل البيانات',s:'completed',f:'ريل',res:'118',ind:'محادثة',sp:'$15.96',cpr:'$0.135',imp:'50,280',r:'31,359',cv:'118',nw:'97'},
+  {n:'حملة رسائل كيفَ - بوست لا تنافس الAI',s:'not_delivering',f:'بوست',res:'1,508',ind:'تفاعل',sp:'$32.73',cpr:'$0.022',imp:'127,265',r:'74,172',cv:'286',nw:'238'},
+  {n:'حملة رسائل انجن - ابنك مو بس يستخدم الAI',s:'completed',f:'بوست',res:'306',ind:'محادثة',sp:'$16.56',cpr:'$0.054',imp:'109,964',r:'65,779',cv:'306',nw:'242'},
+  {n:'ريل ترويج بريميوم كيفَ - Copy',s:'inactive',f:'ريل',res:'40',ind:'محادثة',sp:'$8.50',cpr:'$0.213',imp:'17,143',r:'9,235',cv:'40',nw:'32'},
+  {n:'حملة رسائل - بوست العمر مجرد رقم',s:'completed',f:'بوست',res:'135',ind:'محادثة',sp:'$15.14',cpr:'$0.112',imp:'51,052',r:'27,177',cv:'135',nw:'115'},
+  {n:'حملة رسائل - انجن - كاروسيل ملهم',s:'recently_completed',f:'كاروسيل',res:'513',ind:'محادثة',sp:'$30.98',cpr:'$0.060',imp:'167,545',r:'59,467',cv:'513',nw:'439'},
+  {n:'كاروسيل ملهم - السعودية',s:'inactive',f:'كاروسيل',res:'15,661',ind:'وصول',sp:'$2.16',cpr:'$0.138',imp:'15,773',r:'15,661',cv:'—',nw:'—'},
+  {n:'كاروسيل ملهم - الامارات',s:'inactive',f:'كاروسيل',res:'7',ind:'محادثة',sp:'$22.73',cpr:'$3.247',imp:'2,619',r:'1,595',cv:'7',nw:'7'},
+  {n:'حملة رسائل - السعودية - ملهم',s:'inactive',f:'بوست',res:'21',ind:'محادثة',sp:'$21.44',cpr:'$1.021',imp:'3,094',r:'1,867',cv:'21',nw:'19'},
+  {n:'حملة رسائل - كيفَ - بوست لا تنافس مكرر',s:'recently_completed',f:'بوست',res:'92',ind:'محادثة',sp:'$14.91',cpr:'$0.162',imp:'60,405',r:'38,794',cv:'92',nw:'85'},
+  {n:'حملة رسائل - كيفَ - ريل AI مكرر - سوريا',s:'recently_completed',f:'ريل',res:'83',ind:'محادثة',sp:'$12.96',cpr:'$0.156',imp:'23,038',r:'14,615',cv:'83',nw:'73'},
+  {n:'محاضرة انجن تعريفية الرقة والدير',s:'inactive',f:'بوست',res:'37',ind:'محادثة',sp:'$6.23',cpr:'$0.168',imp:'45,046',r:'30,697',cv:'37',nw:'36'},
+  {n:'حملة رسائل - كيفَ - فل ستاك ريل',s:'active',f:'ريل',res:'143',ind:'محادثة',sp:'$16.39',cpr:'$0.115',imp:'74,767',r:'30,754',cv:'143',nw:'127'},
+  {n:'حملة رسائل - كيفَ - فل ستاك مصر',s:'inactive',f:'بوست',res:'77',ind:'نقر',sp:'$0.88',cpr:'$0.011',imp:'5,426',r:'4,903',cv:'1',nw:'1'},
+  {n:'حملة رسائل - كيفَ - فل ستاك مصر - v2',s:'archived',f:'بوست',res:'1',ind:'تفاعل',sp:'$0',cpr:'—',imp:'3',r:'3',cv:'—',nw:'—'},
+  {n:'حملة رسائل - كيفَ - فل ستاك مصر 2',s:'active',f:'بوست',res:'48',ind:'محادثة',sp:'$14.96',cpr:'$0.312',imp:'11,069',r:'6,294',cv:'48',nw:'48'},
+  {n:'ريل الأمن السيبراني SOC - كيف',s:'inactive',f:'ريل',res:'—',ind:'—',sp:'$0',cpr:'—',imp:'0',r:'0',cv:'—',nw:'—'},
+  {n:'ريل انجن - الخوف من الذكاء الاصطناعي',s:'inactive',f:'ريل',res:'—',ind:'—',sp:'$0',cpr:'—',imp:'0',r:'0',cv:'—',nw:'—'},
+];
+
+const smap = {
+  completed: '<span class="st st-done"><span class="st-dot"></span>مكتملة</span>',
+  active: '<span class="st st-active"><span class="st-dot"></span>نشطة</span>',
+  inactive: '<span class="st st-done"><span class="st-dot"></span>غير فعّالة</span>',
+  recently_completed: '<span class="st st-recent"><span class="st-dot"></span>مكتملة حديثًا</span>',
+  not_delivering: '<span class="st st-stop"><span class="st-dot"></span>متوقفة</span>',
+  archived: '<span class="st st-done"><span class="st-dot"></span>مؤرشفة</span>',
+};
+
+const fmap = {
+  'كاروسيل': '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-left:6px;"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18"/></svg> كاروسيل',
+  'ريل': '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-left:6px;"><rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"/><line x1="7" y1="2" x2="7" y2="22"/><line x1="17" y1="2" x2="17" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/><line x1="2" y1="7" x2="7" y2="7"/><line x1="2" y1="17" x2="7" y2="17"/><line x1="17" y1="17" x2="22" y2="17"/><line x1="17" y1="7" x2="22" y2="7"/></svg> ريل',
+  'بوست': '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block; vertical-align:middle; margin-left:6px;"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg> بوست'
+};
+
+const tbody = document.getElementById('tbl');
+const labels = ['#','الحملة','الحالة','الصيغة','النتائج','مؤشر','الإنفاق','تكلفة/نتيجة','ظهور','وصول','محادثات','تواصلات جديدة'];
+
+all.filter(c => c.sp !== '$0').forEach((c, i) => {
+  const tr = document.createElement('tr');
+  const cols = [
+    `<td class="n mono" data-label="${labels[0]}">${i+1}</td>`,
+    `<td data-label="${labels[1]}">${c.n}</td>`,
+    `<td data-label="${labels[2]}">${smap[c.s]||c.s}</td>`,
+    `<td style="font-size:12px; color:var(--text-muted);" data-label="${labels[3]}">${fmap[c.f]||c.f}</td>`,
+    `<td class="n mono" data-label="${labels[4]}">${c.res}</td>`,
+    `<td data-label="${labels[5]}">${c.ind}</td>`,
+    `<td class="n mono" data-label="${labels[6]}">${c.sp}</td>`,
+    `<td class="n mono" data-label="${labels[7]}">${c.cpr}</td>`,
+    `<td class="n mono" data-label="${labels[8]}">${c.imp}</td>`,
+    `<td class="n mono" data-label="${labels[9]}">${c.r}</td>`,
+    `<td class="n mono" data-label="${labels[10]}">${c.cv}</td>`,
+    `<td class="n mono" data-label="${labels[11]}">${c.nw}</td>`,
+  ];
+  tr.innerHTML = cols.join('');
+  tbody.appendChild(tr);
+});
+</script>
+</body>
+</html>
